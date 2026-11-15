@@ -784,44 +784,107 @@
       .command-grid { grid-template-columns: 1fr; }
       .categories-grid { column-count: 2; }
     }
+    /* Mobile is a working search tool, not a miniature desktop dashboard. */
     @media(max-width:700px) {
-      .sticky-header { gap: 5px; padding: 8px 10px; min-height: 0; }
-      .brand-mark { width: 100%; margin: 0 0 4px; }
-      .brand-icon { width: 31px; height: 31px; font-size: 1.1rem; border-radius: 8px; }
-      .brand-words { font-size: .85rem; }
-      .brand-words small { font-size: .48rem; }
-      .brand-version { font-size: .54rem; }
-      .sticky-header a.queue-link { font-size: .72rem; padding: 5px 9px; }
-      .open-mode-control { margin-left: auto; font-size: .66rem; }
-      .sticky-header #openModeSelect { padding: 5px; font-size: .72rem; }
-      .bulk-launcher summary { padding: 6px 8px; font-size: .72rem; }
-      .bulk-controls { top: 96px; }
-      .main-container { padding: 13px 10px 60px; }
-      .hero-panel { grid-template-columns: 1fr; gap: 16px; padding: 22px 18px; border-radius: 14px; }
-      .hero-panel h1 { font-size: 2.05rem; }
-      .hero-side { padding: 12px; }
-      .stat-cell strong { font-size: 1.45rem; }
-      .search-container { margin: 12px 0 18px; }
-      .search-container button { padding: 9px 10px; font-size: .76rem; }
-      #searchBox { padding: 11px 9px 11px 34px; font-size: .81rem; }
-      .search-prefix { left: 10px; font-size: 1.3rem; }
+      html { font-size: 16px; }
+      body { font-size: 16px; line-height: 1.4; }
+      .sticky-header {
+        position: relative; display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+        align-items: stretch; gap: 8px; padding: 10px 12px; min-height: 0;
+      }
+      .brand-mark { grid-column: 1 / -1; margin: 0; width: 100%; }
+      .brand-icon { width: 34px; height: 34px; font-size: 1.2rem; border-radius: 8px; }
+      .brand-words { font-size: 1rem; }
+      .brand-words small { display: none; }
+      .brand-version { font-size: .75rem; }
+      .sticky-header a.queue-link { padding: 10px 8px; min-height: 44px; font-size: 1rem; }
+      .open-mode-control {
+        grid-column: 1 / -1; margin: 0; display: flex; justify-content: space-between;
+        font-size: .93rem; min-height: 44px; gap: 10px;
+      }
+      .open-mode-control label { white-space: nowrap; }
+      .sticky-header #openModeSelect { flex: 1; max-width: 230px; min-height: 44px; padding: 8px; font-size: 1rem; }
+      .bulk-launcher { grid-column: 1 / 3; }
+      .bulk-launcher summary { display: grid; place-items: center; min-height: 44px; padding: 8px; font-size: .93rem; }
+      .sticky-header a.header-help { grid-column: 3; min-height: 44px; padding: 8px; font-size: .9rem; }
+      .bulk-controls { top: 15px; width: calc(100vw - 20px); max-height: 85vh; overflow-y: auto; }
+      .bulk-controls button,.bulk-controls select { min-height: 44px; font-size: .95rem; }
+      #progressBadge { grid-column: 1 / -1; font-size: .92rem; }
+
+      .main-container { padding: 10px 12px 48px; }
+      .hero-panel { display: none; } /* Decorative introduction and duplicate stats */
+      .search-container { margin: 2px 0 15px; gap: 7px; }
+      #searchBox { min-width: 0; min-height: 50px; padding: 12px 11px 12px 37px; font-size: 16px; }
+      .search-prefix { left: 10px; font-size: 1.5rem; }
+      .search-container button { min-height: 50px; font-size: .95rem; padding: 9px 12px; white-space: nowrap; }
+      .section-intro { margin: 13px 0 8px; }
+      .section-intro > span:first-child { font-size: .84rem; letter-spacing: .04em; }
       .section-side-note { display: none; }
-      .smart-card,.hunt-card,.toolbox-card { padding: 15px; }
-      .smart-terms { gap: 6px; }
-      .smart-pick { min-height: 41px; gap: 4px; padding: 4px; }
-      .smart-pick .term-chip { font-size: .71rem; }
-      .smart-pick-rank { min-width: 15px; }
-      .smart-pick .smart-score { min-width: 16px; }
-      .hunt-queue { max-height: 170px; }
-      .insights-grid,.tools-grid { grid-template-columns: 1fr; }
+      .section-line { width: 13px; margin: 0 4px; }
+      .section-intro-library { margin-top: 20px; }
+      .command-grid,.insights-grid,.tools-grid { grid-template-columns: 1fr; gap: 10px; }
+      .smart-card,.hunt-card,.toolbox-card { padding: 13px; border-radius: 11px; }
+      .panel-heading { align-items: center; margin-bottom: 12px; gap: 7px; }
+      .panel-kicker,.panel-heading p,.smart-explainer { display: none; }
+      .panel-heading h2,.toolbox-card h2 { font-size: 1.17rem; margin: 0; }
+      .heading-soft { display: none; }
+      .mini-control { min-height: 40px; font-size: .9rem; padding: 7px 10px; }
+      .smart-terms { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
+      .smart-pick { min-height: 48px; gap: 5px; padding: 4px 7px; }
+      .smart-pick .term-chip { min-width: 0; min-height: 40px; font-size: .97rem; padding: 5px 1px; }
+      .smart-pick-rank { min-width: 16px; font-size: .8rem; }
+      .smart-pick .smart-score { display: none; }
+      .hunt-status { font-size: .75rem; }
+      .hunt-controls { gap: 8px; }
+      .hunt-controls label { font-size: .86rem; }
+      .hunt-controls select { min-height: 46px; padding: 9px 7px; font-size: 1rem; }
+      .hunt-progress-line strong,#huntPercent { font-size: .99rem; }
+      .hunt-progress-line span { font-size: .83rem; }
+      .hunt-queue { max-height: 155px; }
+      .hunt-queue button { min-height: 42px; padding: 9px 10px; font-size: .93rem; }
+      .hunt-blank { font-size: .9rem; padding: 10px 0; }
+      .hunt-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .hunt-actions button { min-height: 48px; padding: 8px 9px; font-size: .93rem; }
+      .hunt-actions .text-action { grid-column: 1 / -1; min-height: 38px; padding: 5px; }
+
+      .category-jump { width: 100%; padding: 9px; justify-content: space-between; }
+      .category-jump label { font-size: .95rem; white-space: nowrap; }
+      .category-jump select { width: 66%; min-height: 44px; padding: 9px; font-size: 1rem; }
+      .quick-discover { padding: 12px; }
+      .discover-heading { margin-bottom: 8px; }
+      .discover-heading h2 { font-size: 1.08rem; }
+      .discover-heading p,.toolbox-card p { font-size: .88rem; line-height: 1.4; }
+      .discover-heading .discover-actions { flex-wrap: wrap; }
+      .term-chip,.small-action { min-height: 44px; font-size: .98rem; padding: 9px 11px; }
+      .recent-label,.broad-note,.filter-status { font-size: .88rem; }
+      .recent-searches .term-chip { min-height: 42px; font-size: .95rem; }
+      .controls-bar { align-items: flex-start; gap: 6px; }
+      .saved-heading { font-size: 1rem; }
+      #toggleAllBtn { min-height: 44px; font-size: .92rem; padding: 7px 10px; }
       .categories-grid { column-count: 1; }
-      .category-jump { width: 100%; }
-      .category-jump select { width: 75%; }
-      .category .link-item { font-size: .74rem; }
-      .vault-form-row { grid-template-columns: 96px 1fr; }
-      .vault-form-row button { grid-column: 1 / -1; }
-      .feedback-bar { bottom: 5px; padding: 8px; }
-      .sticky-header a.header-help { padding: 6px 8px; font-size: .7rem; }
+      .category,.category.expanded { padding: 8px 11px; margin-bottom: 7px; }
+      .category-header { min-height: 45px; }
+      .category-header h3 { font-size: 1rem; line-height: 1.3; }
+      .cat-count { font-size: .9rem; }
+      .category .link-item { display: flex; align-items: center; min-height: 44px; font-size: 1rem; padding: 9px 11px; }
+      .pin-toggle { min-width: 40px; font-size: 1.25rem; padding: 6px; }
+      .cat-launch-btn { min-height: 44px; font-size: .94rem; padding: 9px; }
+      .broad-group h3 { font-size: 1.06rem; }
+      .vault-form input { min-height: 46px; font-size: 16px; padding: 10px 11px; }
+      .vault-form-row { grid-template-columns: 100px minmax(0,1fr); }
+      .vault-form-row button { grid-column: 1 / -1; min-height: 46px; }
+      .vault-item strong { font-size: .98rem; }
+      .vault-item p,.vault-item .vault-etv { font-size: .86rem; }
+      .vault-item-actions a,.vault-item-actions button { min-height: 42px; font-size: .88rem; }
+      .backup-actions { margin: 12px 0; }
+      .backup-actions button { min-height: 46px; font-size: .94rem; }
+      .backup-foot { font-size: .85rem!important; }
+      .deal-sites-container { padding: 13px; }
+      .deal-site-links { gap: 7px; }
+      .deal-site-links a { min-height: 44px; font-size: .95rem; display: inline-flex; align-items: center; }
+      .feedback-bar { bottom: 5px; padding: 9px; }
+      .feedback-bar .feedback-label { font-size: .94rem; }
+      .feedback-actions button { min-height: 44px; font-size: .93rem; padding: 9px; }
     }
     @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior: auto!important; animation-duration: .001ms!important; transition-duration: .001ms!important; } }
   </style>
@@ -2105,18 +2168,20 @@
     ];
 
     // Render Categories & Actions
+    const startCategoriesExpanded = !window.matchMedia('(max-width:700px)').matches;
+    if (!startCategoriesExpanded) toggleAllButton.textContent = 'Expand All Categories';
     Object.entries(categories).forEach(([title, items], index) => {
       const catDiv = document.createElement('div');
-      catDiv.className = 'category expanded';
+      catDiv.className = startCategoriesExpanded ? 'category expanded' : 'category';
       catDiv.id = `category-${index}`;
       catDiv.dataset.title = title.toLowerCase();
-      catDiv.dataset.userExpanded = 'true';
+      catDiv.dataset.userExpanded = String(startCategoriesExpanded);
 
       const headerDiv = document.createElement('div');
       headerDiv.className = 'category-header';
       headerDiv.setAttribute('role', 'button');
       headerDiv.setAttribute('tabindex', '0');
-      headerDiv.setAttribute('aria-expanded', 'true');
+      headerDiv.setAttribute('aria-expanded', String(startCategoriesExpanded));
       headerDiv.setAttribute('aria-label', `Toggle ${title} searches`);
 
       const h3 = document.createElement('h3');
